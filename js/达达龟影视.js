@@ -4,8 +4,8 @@ muban.mxpro.二级.tab_text = 'body--small&&Text';
 var rule={
     title:'188影视',
     模板:'mxpro',
-    // host:'https://188kan.com',
-    host:'https://www.7k789.com',
+    // host:'https://www.dadagui.me',
+    host:'https://www.dadagui.me',
     // url:'/vod-show{{fl.area}}{{fl.by}}-id-{{fl.cateId}}-page-fypage{{fl.year}}.html',
     url:'/vod-showfyfilter.html',
     filterable:1,//是否启用分类筛选,
