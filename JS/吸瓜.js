@@ -1,23 +1,16 @@
 var rule = {
     title:'吸瓜',
     host:'https://xgsp.tv',
-    // homeUrl:'',
-    url:'/list/?fyclass-fypage.html',
-            searchable: 2,//是否启用全局搜索,
-            quickSearch: 0,//是否启用快速搜索,
-            filterable: 0,//是否启用分类筛选,
-            headers:{'User-Agent':'MOBILE_UA'},
-            class_parse: '.header&&ul&&li;a&&Text;a&&href;/(\\d+).html',
-            play_parse: true,
-            lazy: '',
-            limit: 6,  
-          推荐: 'body&&.content;div.drama;*;*;*;*',
-          double:true,
-          一级: '.content&&div.drama;.title&&Text;.imgcover&&style;p&&Text;a&&href',
-          二级: {
-                "title": ".title&&Text",
-                "content": "pre&&Text",
-                "tabs": ".items&&b",//解析源
-                "lists": "body&&.items:eq(#id) li"
-            },
- }
+    url:'',
+    headers:{
+        'User-Agent':'MOBILE_UA'
+    },
+    timeout:5000,
+    class_name:'主页&热门推送&推荐&我的最爱&最佳私人秀&',//静态分类名称拼接
+    class_url:'最新av線上看&熱門av線上看&每日av線上看線上看&精選av線上看',//静态分类标识拼接
+    limit:5,
+    play_parse:true,
+    lazy:'',
+    一级:'.l-post div&&a;a&&title;span&&data-bgsrc;.absolute.bottom-1&&Text;a&&href',
+    二级:'*',
+}
