@@ -3,19 +3,22 @@ var rule = {
     host:'https://xgsp.tv',
     // homeUrl:'',
     url:'/list/?fyclass-fypage.html',
-    headers:{
-        'User-Agent':'MOBILE_UA'
-    },
-    searchable:0,
-    quickSearch:0,
-    timeout:5000,
-    class_parse:'.wap-roll&&li;a&&Text;a&&href;(\\d+).html',
-    cate_exclude:'独家',
-    limit:5,
-    play_parse:true,
-    lazy:'js:let html=request(input);let a=html.match(/var now="(.*?)"/)[1];input=a',
-    推荐:'ul.row.row-space7.row-m-space7.tx-column-5.tx-column-m-2;li;a&&title;img&&src;.ico-right&&Text;a&&href',
-    double:true,
-    一级:'.tx-column-m-2.mb20&&li;h2&&Text;img&&src;.ico-right&&Text;a&&href',
-    二级:'*',
-}
+searchUrl: '/vodsearch/.html?wd=**',    
+            searchable: 2,//是否启用全局搜索,
+            quickSearch: 0,//是否启用快速搜索,
+            filterable: 0,//是否启用分类筛选,
+            headers:{'User-Agent':'MOBILE_UA'},
+            class_parse: '.header&&ul&&li;a&&Text;a&&href;/(\\d+).html',
+            play_parse: true,
+            lazy: '',
+            limit: 6,  
+          推荐: 'body&&.content;div.drama;*;*;*;*',
+          double:true,
+          一级: '.content&&div.drama;.title&&Text;.imgcover&&style;p&&Text;a&&href',
+          二级: {
+                "title": ".title&&Text",
+                "content": "pre&&Text",
+                "tabs": ".items&&b",//解析源
+                "lists": "body&&.items:eq(#id) li"
+            },
+ }
