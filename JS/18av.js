@@ -1,6 +1,6 @@
 var rule = {
     title:'18av',
-    host:'https://maa1812.com',
+    host:'https://mjv002.com/',
     url:'/zh/fyclass/all/fypage.html',
     headers:{
         'User-Agent':'MOBILE_UA'
