@@ -6,7 +6,7 @@ var rule = {
         'User-Agent':'MOBILE_UA'
     },
     timeout:5000,
-    class_name:'主页&热门推送&推荐&我的最爱&最佳私人秀&',//静态分类名称拼接
+    class_name:'女主播&情侣&男主播&变性人',//静态分类名称拼接
     class_url:'最新av線上看&熱門av線上看&每日av線上看線上看&精選av線上看',//静态分类标识拼接
     limit:5,
     play_parse:true,
