@@ -1,6 +1,6 @@
 var rule = {
 	title: '映迷[V2]', // csp_AppYsV2
-	host: 'https://www.inmi.app/xgapp.php/v1/',
+	host: 'https://www.inmi.app',
 	url: 'video?tid=fyclassfyfilter&limit=20&pg=fypage',
 	filter_url:'&class={{fl.class}}&area={{fl.area}}&lang={{fl.lang}}&letter={{fl.letter}}&year={{fl.year}}&by={{fl.by}}',
 	filter:{
