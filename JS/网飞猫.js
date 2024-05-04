@@ -1,5 +1,5 @@
 var rule = {
-  title: '毒舌影视',
+  title: '网飞猫',
   host: 'https://www.ncat2.com',
   // url: '/show/fyclass-----2-fypage.html',
   url: '/show/fyclass-fyfilter-fypage.html',
