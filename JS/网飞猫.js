@@ -1,6 +1,6 @@
 var rule = {
   title: '毒舌影视',
-  host: 'https://www.dushe2.app',
+  host: 'https://www.ncat2.com',
   // url: '/show/fyclass-----2-fypage.html',
   url: '/show/fyclass-fyfilter-fypage.html',
   filter_url:'{{fl.类型}}-{{fl.地区}}-{{fl.语言}}-{{fl.年份}}-{{fl.排序}}',
