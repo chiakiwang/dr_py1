@@ -1,4 +1,3 @@
-// https://xn--4k-ms3d190f0rl.com/
 muban.mxone5.二级.title = 'h1&&Text;.video-info-aux&&Text'
 muban.mxone5.二级.desc = '.video-info-items:eq(3)&&Text;;;.video-info-actor:eq(1)&&Text;.video-info-actor:eq(0)&&Text'
 var rule = {
