@@ -1,26 +1,21 @@
 var rule = {
     title: '思古影视[V2]', // csp_AppYsV2
-	host:'https://siguyy.cc/api.php/app/',
+    host: 'https://siguyy.cc/api.php/app/',
     url: 'video?tid=fyclassfyfilter&limit=20&pg=fypage',
-    filter_url:'&class={{fl.class}}&area={{fl.area}}&lang={{fl.lang}}&letter={{fl.letter}}&year={{fl.year}}&by={{fl.by}}',
-	filter:{
-		"1":[{"key":"class","name":"剧情","value":[{"n":"全部","v":""},{"n":"喜剧","v":"喜剧"},{"n":"爱情","v":"爱情"},{"n":"恐怖","v":"恐怖"},{"n":"动作","v":"动作"},{"n":"科幻","v":"科幻"},{"n":"剧情","v":"剧情"},{"n":"战争","v":"战争"},{"n":"犯罪","v":"犯罪"},{"n":"动画","v":"动画"},{"n":"奇幻","v":"奇幻"},{"n":"武侠","v":"武侠"},{"n":"冒险","v":"冒险"},{"n":"恐怖","v":"恐怖"},{"n":"悬疑","v":"悬疑"},{"n":"惊悚","v":"惊悚"},{"n":"微电影","v":"微电影"},{"n":"古装","v":"古装"},{"n":"历史","v":"历史"},{"n":"儿童","v":"儿童"}]},{"key":"area","name":"地区","value":[{"n":"全部","v":""},{"n":"大陆","v":"大陆"},{"n":"香港","v":"香港"},{"n":"台湾","v":"台湾"},{"n":"美国","v":"美国"},{"n":"法国","v":"法国"},{"n":"英国","v":"英国"},{"n":"日本","v":"日本"},{"n":"韩国","v":"韩国"},{"n":"印度","v":"印度"}]},{"key":"year","name":"年份","value":[{"n":"全部","v":""},{"n":"2024","v":"2024"},{"n":"2023","v":"2023"},{"n":"2022","v":"2022"},{"n":"2021","v":"2021"},{"n":"2020","v":"2020"},{"n":"2019","v":"2019"},{"n":"2018","v":"2018"},{"n":"2017","v":"2017"},{"n":"2016","v":"2016"},{"n":"2015","v":"2015"},{"n":"2014","v":"2014"},{"n":"2013","v":"2013"},{"n":"2012","v":"2012"}]}],
-		"2":[{"key":"class","name":"剧情","value":[{"n":"全部","v":""},{"n":"古装","v":"古装"},{"n":"青春","v":"青春"},{"n":"偶像","v":"偶像"},{"n":"喜剧","v":"喜剧"},{"n":"家庭","v":"家庭"},{"n":"犯罪","v":"犯罪"},{"n":"动作","v":"动作"},{"n":"剧情","v":"剧情"},{"n":"历史","v":"历史"},{"n":"情景","v":"情景"},{"n":"商战","v":"商战"},{"n":"网剧","v":"网剧"}]},{"key":"area","name":"地区","value":[{"n":"全部","v":""},{"n":"大陆","v":"大陆"},{"n":"韩国","v":"韩国"},{"n":"香港","v":"香港"},{"n":"台湾","v":"台湾"},{"n":"日本","v":"日本"},{"n":"美国","v":"美国"},{"n":"泰国","v":"泰国"}]},{"key":"year","name":"年份","value":[{"n":"全部","v":""},{"n":"2024","v":"2024"},{"n":"2023","v":"2023"},{"n":"2022","v":"2022"},{"n":"2021","v":"2021"},{"n":"2020","v":"2020"},{"n":"2019","v":"2019"},{"n":"2018","v":"2018"},{"n":"2017","v":"2017"},{"n":"2016","v":"2016"},{"n":"2015","v":"2015"},{"n":"2014","v":"2014"},{"n":"2013","v":"2013"},{"n":"2012","v":"2012"}]}],
-		"3":[{"key":"class","name":"剧情","value":[{"n":"全部","v":""},{"n":"选秀","v":"选秀"},{"n":"情感","v":"情感"},{"n":"访谈","v":"访谈"},{"n":"音乐","v":"音乐"},{"n":"美食","v":"美食"},{"n":"曲艺","v":"曲艺"},{"n":"生活","v":"生活"}]},{"key":"area","name":"地区","value":[{"n":"全部","v":""},{"n":"大陆","v":"大陆"},{"n":"香港","v":"香港"},{"n":"韩国","v":"韩国"},{"n":"日本","v":"日本"},{"n":"台湾","v":"台湾"},{"n":"美国","v":"美国"}]},{"key":"year","name":"年份","value":[{"n":"全部","v":""},{"n":"2024","v":"2024"},{"n":"2023","v":"2023"},{"n":"2022","v":"2022"},{"n":"2021","v":"2021"},{"n":"2020","v":"2020"},{"n":"2019","v":"2019"},{"n":"2018","v":"2018"},{"n":"2017","v":"2017"},{"n":"2016","v":"2016"},{"n":"2015","v":"2015"},{"n":"2014","v":"2014"},{"n":"2013","v":"2013"},{"n":"2012","v":"2012"}]}],
-		"4":[{"key":"class","name":"剧情","value":[{"n":"全部","v":""},{"n":"科幻","v":"科幻"},{"n":"热血","v":"热血"},{"n":"推理","v":"推理"},{"n":"搞笑","v":"搞笑"},{"n":"冒险","v":"冒险"},{"n":"校园","v":"校园"},{"n":"动作","v":"动作"},{"n":"机战","v":"机战"},{"n":"运动","v":"运动"},{"n":"少女","v":"少女"},{"n":"社会","v":"社会"},{"n":"原创","v":"原创"},{"n":"亲子","v":"亲子"},{"n":"益智","v":"益智"},{"n":"励志","v":"励志"}]},{"key":"area","name":"地区","value":[{"n":"全部","v":""},{"n":"大陆","v":"大陆"},{"n":"日本","v":"日本"},{"n":"台湾","v":"台湾"},{"n":"美国","v":"美国"}]},{"key":"year","name":"年份","value":[{"n":"全部","v":""},{"n":"2024","v":"2024"},{"n":"2023","v":"2023"},{"n":"2022","v":"2022"},{"n":"2021","v":"2021"},{"n":"2020","v":"2020"},{"n":"2019","v":"2019"},{"n":"2018","v":"2018"},{"n":"2017","v":"2017"},{"n":"2016","v":"2016"},{"n":"2015","v":"2015"},{"n":"2014","v":"2014"},{"n":"2013","v":"2013"},{"n":"2012","v":"2012"}]}]
-	},
-    detailUrl:'/detail?vod_id=fyid',
+    filter_url: '&class={{fl.class}}&area={{fl.area}}&lang={{fl.lang}}&letter={{fl.letter}}&year={{fl.year}}&by={{fl.by}}',
+    filter: 'H4sIAAAAAAAAA+2X3U4aQRTH32WvvXDxs75K48Wm4arWC02bGGOCohRoq2D8otCiUQRbUT6sKWuBl9mZZd+iy54558xNN9uGSNJwt7//2TMzZ5jzn2XTMI2ll5vG6/iGsWS8WrHW140pY9V6E/dRZKoyuefzO2vlbTx4b3Uo79W8ZG0o+2BsTSn1pOS/r1QFGHPTTTUQA8bkdk4mTlRMAY2ZrTndEo4JQGNW86LzhGMCUB4tnIHmS585dgbnA6Axs/du9xuOCaCtxT164rUMgWKV97wWBTRf/drpneN8AJSXOvQKN5gHEGVf5M6te5LHGADFklm58xljADRf7849+iG6TZySmN44uBpc0s4BUGw/JQ5aGAOg2G7f/V7BGMDW8jAKJ8tai1vawSo1xEc76sG6qnqFFA4NgDHvuiB/3quYAi6lITs9KiUA+qF7+6LYxR8agDawfcwxBRgbfGhyTAHlnVZk6RbzAGid5RvOU0Dr/NQQ9jWuE0Dfuo24taZtXefBeepG3LrYdGxWacGjps+wPqPrMdZjum6ybur6NOvTmm6+IN1/1PRF1hd1fYH1BV2fZ31e1+dYn9N1rtfU6zW5XlOv1+R6/Ud/25enjNioHDGkl7wvh/IM+0UB5W0/iuQB5gFEcVlx9yjsOsYAIjrbH102zEnD/MB/TxawMRVQ3nHK913MA6B1dvNcn4Ln8JGQ/vxXjwnzg3D/aej+E8DED8boBzMj8gMvkXGrCTxIAHq/7Ja1fvGBLp27/qCRxksHgA9u2+nk6OAGoB0y77LMh2wINF+xNcjYOB8A5R2V5QN9WQGM+S4P68+wPvvrb4BJn42vz2ZH1Gdh/wzcZH1wgT2ogA7Sfs3N4eFUQLHcV/eWvrgBIn3Fn1+IIt7JCqLcu7Jk8x2pgPygn/PfRj8AoDEbeVFp45gAVPtVz/mF/wwU8F1eFuki3eUBYMyxW6KOHqOAxixmZQF9RAHX1xT9U6ovgGfwkYkf/Bd+sPUbU7HRkZsQAAA=',
+    detailUrl: '/detail?vod_id=fyid',
     searchUrl: '/search?text=**&pg=fypage',
     searchable: 2,
     quickSearch: 0,
-    filterable:1,//是否启用分类筛选,
-    headers:{'User-Agent':'okhttp/4.1.0'},
-    timeout:5000,
+    filterable: 1,//是否启用分类筛选,
+    headers: {'User-Agent': 'okhttp/4.1.0'},
+    timeout: 5000,
     // 分类筛选 /api.php/app/nav || /xgapp.php/v1/nav || /api.php/v1.vod/types
-    class_name:'短剧&电影&电视剧&综艺&动漫',
-    class_url:'24&1&2&3&4',
-    play_parse:true,
-	lazy:`js:
+    class_name: '短剧&电影&电视剧&综艺&动漫',
+    class_url: '24&1&2&3&4',
+    play_parse: true,
+    lazy: `js:
 		let play_Url = '';
 		if (/\\.m3u8|\\.mp4/.test(input)) {
 			input = {
@@ -59,9 +54,9 @@ var rule = {
 			input
 		}
     `,
-    limit:6,
+    limit: 6,
     // 图片来源:'@Referer=https://api.douban.com/@User-Agent=Mozilla/5.0%20(Windows%20NT%2010.0;%20Win64;%20x64)%20AppleWebKit/537.36%20(KHTML,%20like%20Gecko)%20Chrome/113.0.0.0%20Safari/537.36',
-    推荐:`js:
+    推荐: `js:
         let d = [];
         let jsondata = [];
         let videoList = [];
@@ -94,7 +89,7 @@ var rule = {
         });
         setResult(d);
     `,
-    一级:`js:
+    一级: `js:
         let d = [];
         let jsondata = [];
         let videoList = [];
@@ -118,7 +113,7 @@ var rule = {
         });
         setResult(d);
     `,
-	二级:`js: 
+    二级: `js: 
 		if (/v1\\.vod/.test(HOST)) {
 			input = HOST + '/'+ input.split('/')[3];
 		} else {
@@ -277,7 +272,7 @@ var rule = {
 			log("获取二级详情页发生错误:" + e.message);
 		}
 	`,
-	搜索:`js:
+    搜索: `js:
 		let d = [];
 		let jsondata = [];
 		let videoList = [];
