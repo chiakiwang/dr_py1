@@ -1,8 +1,7 @@
 var rule = {
     title:'KOK影院',
     // host:'https://www.kokyy.com',
-    host:'https://www.pzjzyy.com',
-    // url:'/koks/fyclass/page/fypage.html',
+    host:'https://www.pzjzyy.com',    
     url:'/koks/fyclassfyfilter.html',
     filterable:1,//是否启用分类筛选,
     filter_url:'{{fl.area}}{{fl.by or "/by/time"}}{{fl.class}}/page/fypage{{fl.year}}',
@@ -93,7 +92,7 @@ var rule = {
         let vod_tab_list = [];
         let tabs = pdfa(html, "body .swiper-wrapper&&a");
         tabs.forEach((it) => {
-            playFrom.push(pdfh(it, "a&&Text"))
+            playFrom.push('诺临风-' + pdfh(it, "a&&Text"))
         });
         for (let i = 0; i < playFrom.length; i++) {
             let p1 = ".content_playlist:eq(#id)&&li".replaceAll("#id", i);
