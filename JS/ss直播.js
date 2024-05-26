@@ -1,9 +1,9 @@
 var rule = {
     title:'ss直播',
-    host:'http://api.hclyz.com:81/mf/',
-    homeUrl:'/json.txt',
-    url:'/fyclass',
-    class_name:'all',
+    host:'http://api.hclyz.com:81',
+    homeUrl:'/mf/json.txt',
+    url:'/mf/fyclass',
+    class_name:'🔴在线全网直播间',
     class_url:'json.txt',
     headers:{
         'User-Agent':'MOBILE_UA',
