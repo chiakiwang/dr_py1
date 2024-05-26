@@ -1,8 +1,8 @@
 var rule = {
     title:'ss直播',
-    host:'http://api.hclyz.com:81/mf/json.txt',
-    homeUrl:'',
-    url:'/mf/fyclass',
+    host:'http://api.hclyz.com:81/mf',
+    homeUrl:'/json.txt',
+    url:'/fyclass',
     class_name:'all',
     class_url:'json.txt',
     headers:{
