@@ -1,7 +1,10 @@
 import cheerio from 'assets://js/lib/cheerio.min.js';
 import 'assets://js/lib/crypto-js.js';
 import './jsencrypt.js';
-import 模板 from "../js/模板.js"
+import './node-rsa.js';
+import './pako.min.js';
+// import JSEncrypt from './jsencrypt.js'; // 会导致壳子崩溃的
+import 模板 from './模板.js'
 import {gbkTool} from './gbk.js'
 
 // import cheerio from "https://ghproxy.net/https://raw.githubusercontent.com/hjdhnx/dr_py/main/libs/cheerio.min.js";
@@ -15,7 +18,25 @@ function init_test(){
     // print(模板);
     // print(typeof(模板.getMubans));
     console.log("当前版本号:"+VERSION);
+    console.log('本地代理地址:'+getProxyUrl());
     console.log(RKEY);
+    // ocr_demo_test();
+    // rsa_demo_test();
+
+    // console.log('Uint8Array:'+typeof(Uint8Array)+' '+'Uint16Array:'+typeof(Uint16Array));
+    // console.log('encodeURIComponent:'+typeof(encodeURIComponent)+' '+'decodeURIComponent:'+typeof(decodeURIComponent));
+    // console.log('atob:'+typeof(atob)+' '+'btoa:'+typeof(btoa));
+    // log('typeof (JSEncrypt):'+typeof (JSEncrypt));
+    // log('typeof (pako):'+typeof (pako));
+    // let b64_str = btoa('hello hipy');
+    // let str = atob(b64_str);
+    // console.log(`btoa加密文本:${b64_str},atob解密文本:${str}`)
+    // let gzip_str = gzip('{"a":"电影","b":"电影","c":"电影","d":"电影","e":"电影","f":"电影"}');
+    // let ungzip_str = ungzip(gzip_str);
+    // console.log(`gzip加密文本:${gzip_str},长度:${gzip_str.length},ungzip解密文本:${ungzip_str},长度:${ungzip_str.length}`);
+    // let a = {"1":[{"key":"类型","name":"类型","value":[{"n":"全部","v":""},{"n":"Netflix","v":"NETFLIX"},{"n":"剧情","v":"剧情"},{"n":"喜剧","v":"喜剧"},{"n":"动作","v":"动作"},{"n":"爱情","v":"爱情"},{"n":"恐怖","v":"恐怖"},{"n":"惊悚","v":"惊悚"},{"n":"犯罪","v":"犯罪"},{"n":"科幻","v":"科幻"},{"n":"悬疑","v":"悬疑"},{"n":"奇幻","v":"奇幻"},{"n":"冒险","v":"冒险"},{"n":"战争","v":"战争"},{"n":"历史","v":"历史"},{"n":"古装","v":"古装"},{"n":"家庭","v":"家庭"},{"n":"传记","v":"传记"},{"n":"武侠","v":"武侠"},{"n":"歌舞","v":"歌舞"},{"n":"短片","v":"短片"},{"n":"动画","v":"动画"},{"n":"儿童","v":"儿童"},{"n":"职场","v":"职场"}]},{"key":"地区","name":"地区","value":[{"n":"全部","v":""},{"n":"大陆","v":"中国大陆"},{"n":"香港","v":"中国香港"},{"n":"台湾","v":"中国台湾"},{"n":"美国","v":"美国"},{"n":"日本","v":"日本"},{"n":"韩国","v":"韩国"},{"n":"英国","v":"英国"},{"n":"法国","v":"法国"},{"n":"德国","v":"德国"},{"n":"印度","v":"印度"},{"n":"泰国","v":"泰国"},{"n":"丹麦","v":"丹麦"},{"n":"瑞典","v":"瑞典"},{"n":"巴西","v":"巴西"},{"n":"加拿大","v":"加拿大"},{"n":"俄罗斯","v":"俄罗斯"},{"n":"意大利","v":"意大利"},{"n":"比利时","v":"比利时"},{"n":"爱尔兰","v":"爱尔兰"},{"n":"西班牙","v":"西班牙"},{"n":"澳大利亚","v":"澳大利亚"},{"n":"其他","v":"其他"}]},{"key":"语言","name":"语言","value":[{"n":"全部","v":""},{"n":"国语","v":"国语"},{"n":"粤语","v":"粤语"},{"n":"英语","v":"英语"},{"n":"日语","v":"日语"},{"n":"韩语","v":"韩语"},{"n":"法语","v":"法语"},{"n":"其他","v":"其他"}]},{"key":"年份","name":"年份","value":[{"n":"全部","v":""},{"n":"2024","v":"2024"},{"n":"2023","v":"2023"},{"n":"2022","v":"2022"},{"n":"2021","v":"2021"},{"n":"2020","v":"2020"},{"n":"10年代","v":"2010_2019"},{"n":"00年代","v":"2000_2009"},{"n":"90年代","v":"1990_1999"},{"n":"80年代","v":"1980_1989"},{"n":"更早","v":"0_1979"}]},{"key":"排序","name":"排序","value":[{"n":"综合","v":""},{"n":"最新","v":"2"},{"n":"最热","v":"3"},{"n":"评分","v":"4"}]}],"2":[{"key":"类型","name":"类型","value":[{"n":"全部","v":""},{"n":"Netflix","v":"Netflix"},{"n":"剧情","v":"剧情"},{"n":"爱情","v":"爱情"},{"n":"喜剧","v":"喜剧"},{"n":"犯罪","v":"犯罪"},{"n":"悬疑","v":"悬疑"},{"n":"古装","v":"古装"},{"n":"动作","v":"动作"},{"n":"家庭","v":"家庭"},{"n":"惊悚","v":"惊悚"},{"n":"奇幻","v":"奇幻"},{"n":"美剧","v":"美剧"},{"n":"科幻","v":"科幻"},{"n":"历史","v":"历史"},{"n":"战争","v":"战争"},{"n":"韩剧","v":"韩剧"},{"n":"武侠","v":"武侠"},{"n":"言情","v":"言情"},{"n":"恐怖","v":"恐怖"},{"n":"冒险","v":"冒险"},{"n":"都市","v":"都市"},{"n":"职场","v":"职场"}]},{"key":"地区","name":"地区","value":[{"n":"地区","v":""},{"n":"大陆","v":"中国大陆"},{"n":"香港","v":"中国香港"},{"n":"韩国","v":"韩国"},{"n":"美国","v":"美国"},{"n":"日本","v":"日本"},{"n":"法国","v":"法国"},{"n":"英国","v":"英国"},{"n":"德国","v":"德国"},{"n":"台湾","v":"中国台湾"},{"n":"泰国","v":"泰国"},{"n":"印度","v":"印度"},{"n":"其他","v":"其他"}]},{"key":"语言","name":"语言","value":[{"n":"全部","v":""},{"n":"国语","v":"国语"},{"n":"粤语","v":"粤语"},{"n":"英语","v":"英语"},{"n":"日语","v":"日语"},{"n":"韩语","v":"韩语"},{"n":"法语","v":"法语"},{"n":"其他","v":"其他"}]},{"key":"年份","name":"年份","value":[{"n":"全部","v":""},{"n":"2024","v":"2024"},{"n":"2023","v":"2023"},{"n":"2022","v":"2022"},{"n":"2021","v":"2021"},{"n":"2020","v":"2020"},{"n":"10年代","v":"2010_2019"},{"n":"00年代","v":"2000_2009"},{"n":"90年代","v":"1990_1999"},{"n":"80年代","v":"1980_1989"},{"n":"更早","v":"0_1979"}]},{"key":"排序","name":"排序","value":[{"n":"综合","v":""},{"n":"最新","v":"2"},{"n":"最热","v":"3"},{"n":"评分","v":"4"}]}],"3":[{"key":"类型","name":"类型","value":[{"n":"全部","v":""},{"n":"Netflix","v":"Netflix"},{"n":"动态漫画","v":"动态漫画"},{"n":"剧情","v":"剧情"},{"n":"动画","v":"动画"},{"n":"喜剧","v":"喜剧"},{"n":"冒险","v":"冒险"},{"n":"动作","v":"动作"},{"n":"奇幻","v":"奇幻"},{"n":"科幻","v":"科幻"},{"n":"儿童","v":"儿童"},{"n":"搞笑","v":"搞笑"},{"n":"爱情","v":"爱情"},{"n":"家庭","v":"家庭"},{"n":"短片","v":"短片"},{"n":"热血","v":"热血"},{"n":"益智","v":"益智"},{"n":"悬疑","v":"悬疑"},{"n":"经典","v":"经典"},{"n":"校园","v":"校园"},{"n":"Anime","v":"Anime"},{"n":"运动","v":"运动"},{"n":"亲子","v":"亲子"},{"n":"青春","v":"青春"},{"n":"恋爱","v":"恋爱"},{"n":"武侠","v":"武侠"},{"n":"惊悚","v":"惊悚"}]},{"key":"地区","name":"地区","value":[{"n":"全部","v":""},{"n":"日本","v":"日本"},{"n":"大陆","v":"中国大陆"},{"n":"台湾","v":"中国台湾"},{"n":"美国","v":"美国"},{"n":"香港","v":"中国香港"},{"n":"韩国","v":"韩国"},{"n":"英国","v":"英国"},{"n":"法国","v":"法国"},{"n":"德国","v":"德国"},{"n":"印度","v":"印度"},{"n":"泰国","v":"泰国"},{"n":"丹麦","v":"丹麦"},{"n":"瑞典","v":"瑞典"},{"n":"巴西","v":"巴西"},{"n":"加拿大","v":"加拿大"},{"n":"俄罗斯","v":"俄罗斯"},{"n":"意大利","v":"意大利"},{"n":"比利时","v":"比利时"},{"n":"爱尔兰","v":"爱尔兰"},{"n":"西班牙","v":"西班牙"},{"n":"澳大利亚","v":"澳大利亚"},{"n":"其他","v":"其他"}]},{"key":"语言","name":"语言","value":[{"n":"全部","v":""},{"n":"国语","v":"国语"},{"n":"粤语","v":"粤语"},{"n":"英语","v":"英语"},{"n":"日语","v":"日语"},{"n":"韩语","v":"韩语"},{"n":"法语","v":"法语"},{"n":"其他","v":"其他"}]},{"key":"年份","name":"年份","value":[{"n":"全部","v":""},{"n":"2024","v":"2024"},{"n":"2023","v":"2023"},{"n":"2022","v":"2022"},{"n":"2021","v":"2021"},{"n":"2020","v":"2020"},{"n":"10年代","v":"2010_2019"},{"n":"00年代","v":"2000_2009"},{"n":"90年代","v":"1990_1999"},{"n":"80年代","v":"1980_1989"},{"n":"更早","v":"0_1979"}]},{"key":"排序","name":"排序","value":[{"n":"综合","v":""},{"n":"最新","v":"2"},{"n":"最热","v":"3"},{"n":"评分","v":"4"}]}],"4":[{"key":"类型","name":"类型","value":[{"n":"全部","v":""},{"n":"纪录","v":"纪录"},{"n":"真人秀","v":"真人秀"},{"n":"记录","v":"记录"},{"n":"脱口秀","v":"脱口秀"},{"n":"剧情","v":"剧情"},{"n":"历史","v":"历史"},{"n":"喜剧","v":"喜剧"},{"n":"传记","v":"传记"},{"n":"相声","v":"相声"},{"n":"节目","v":"节目"},{"n":"歌舞","v":"歌舞"},{"n":"冒险","v":"冒险"},{"n":"运动","v":"运动"},{"n":"Season","v":"Season"},{"n":"犯罪","v":"犯罪"},{"n":"短片","v":"短片"},{"n":"搞笑","v":"搞笑"},{"n":"晚会","v":"晚会"}]},{"key":"地区","name":"地区","value":[{"n":"全部","v":""},{"n":"大陆","v":"中国大陆"},{"n":"香港","v":"中国香港"},{"n":"台湾","v":"中国台湾"},{"n":"美国","v":"美国"},{"n":"日本","v":"日本"},{"n":"韩国","v":"韩国"},{"n":"其他","v":"其他"}]},{"key":"语言","name":"语言","value":[{"n":"全部","v":""},{"n":"国语","v":"国语"},{"n":"粤语","v":"粤语"},{"n":"英语","v":"英语"},{"n":"日语","v":"日语"},{"n":"韩语","v":"韩语"},{"n":"法语","v":"法语"},{"n":"其他","v":"其他"}]},{"key":"年份","name":"年份","value":[{"n":"全部","v":""},{"n":"2024","v":"2024"},{"n":"2023","v":"2023"},{"n":"2022","v":"2022"},{"n":"2021","v":"2021"},{"n":"2020","v":"2020"},{"n":"10年代","v":"2010_2019"},{"n":"00年代","v":"2000_2009"},{"n":"90年代","v":"1990_1999"},{"n":"80年代","v":"1980_1989"},{"n":"更早","v":"0_1979"}]},{"key":"排序","name":"排序","value":[{"n":"综合","v":""},{"n":"最新","v":"2"},{"n":"最热","v":"3"},{"n":"评分","v":"4"}]}],"6":[{"key":"类型","name":"类型","value":[{"n":"类型","v":""},{"n":"逆袭","v":"逆袭"},{"n":"甜宠","v":"甜宠"},{"n":"虐恋","v":"虐恋"},{"n":"穿越","v":"穿越"},{"n":"重生","v":"重生"},{"n":"剧情","v":"剧情"},{"n":"科幻","v":"科幻"},{"n":"武侠","v":"武侠"},{"n":"爱情","v":"爱情"},{"n":"动作","v":"动作"},{"n":"战争","v":"战争"},{"n":"冒险","v":"冒险"},{"n":"其它","v":"其它"}]},{"key":"排序","name":"排序","value":[{"n":"综合","v":""},{"n":"最新","v":"2"},{"n":"最热","v":"3"}]}]};
+    // log(gzip(JSON.stringify(a)));
+
     console.log(JSON.stringify(rule));
     console.log("init_test_end");
 
@@ -51,6 +72,177 @@ function init_test(){
 }
 
 /**
+ * 验证码ocr识别的测试案例
+ */
+function ocr_demo_test(){
+    // 这张图片为4113的验证码
+    let img_base64 = `iVBORw0KGgoAAAANSUhEUgAAAIAAAAAoBAMAAADEX+97AAAAG1BMVEXz+/4thQTa7N6QwIFFkyNeokKozqDB3b93sWHFR+MEAAAACXBIWXMAAA7EAAAOxAGVKw4bAAABN0lEQVRIie2TQU+DQBCFt9vScvQpxR4xrcSjJCZ67JDGXsX+AdR4B3vpsSYm/m2HXaRLmuySepR3Gdidb/btDAjRq5dT96eCMlfBuzi1QLZUoZy2yz5sOvI+9iomaPEZ6nWnEtxqIyiM1RcAy44GNDhBXUjot/VVNweV1ah68FqWRyjKIOqAcyYF6rGcmpYnHzGt3fycNoMw0d3/THFu7hFSJ/8OXO6iTM8/KSg09obAzIHLO250LgQ0txOZSfgrV4Exdw98uGycJ0ErAeExZGhOmFHV9zHO6qVSj0MpLq7xZON56o++MjlsEgfVhbQWWME+xQX7J4V6zfi9A1Ly9rP1BvEXp+BbVJ/M77n+wfOIDVp51pZ4iBxvmj9AGrtvry6emwfKnVkW+ZRKd5ZNMvob36vXP9YPDmQki8QiCFAAAAAASUVORK5CYII=`;
+    // 更换api-可以通过这个代码换掉默认的ocr接口
+    OcrApi.api = OCR_API;
+    let code = OcrApi.classification(img_base64);
+    log('测试验证码图片的ocr识别结果为:'+code);
+}
+
+/**
+ * rsa加解密的全方位测试案例
+ */
+function rsa_demo_test() {
+    let t1 = new Date().getTime();
+    let pkcs1_public = `
+-----BEGIN RSA PUBLIC KEY-----
+MEgCQQCrI0pQ/ERRpJ3Ou190XJedFq846nDYP52rOtXyDxlFK5D3p6JJu2RwsKwy
+lsQ9xY0xYPpRZUZKMEeR7e9gmRNLAgMBAAE=
+-----END RSA PUBLIC KEY-----
+`.trim();
+
+    let pkcs1_public_pem = `
+MEgCQQCrI0pQ/ERRpJ3Ou190XJedFq846nDYP52rOtXyDxlFK5D3p6JJu2RwsKwy
+lsQ9xY0xYPpRZUZKMEeR7e9gmRNLAgMBAAE=
+`.trim();
+
+    let pkcs8_public = `
+-----BEGIN PUBLIC KEY-----
+MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBAKsjSlD8RFGknc67X3Rcl50WrzjqcNg/
+nas61fIPGUUrkPenokm7ZHCwrDKWxD3FjTFg+lFlRkowR5Ht72CZE0sCAwEAAQ==
+-----END PUBLIC KEY-----`.trim();
+
+    let pkcs8_public_pem = `
+MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBAKsjSlD8RFGknc67X3Rcl50WrzjqcNg/
+nas61fIPGUUrkPenokm7ZHCwrDKWxD3FjTFg+lFlRkowR5Ht72CZE0sCAwEAAQ==
+`.trim();
+
+    let pkcs1_private = `
+-----BEGIN RSA PRIVATE KEY-----
+MIIBOAIBAAJBAKsjSlD8RFGknc67X3Rcl50WrzjqcNg/nas61fIPGUUrkPenokm7
+ZHCwrDKWxD3FjTFg+lFlRkowR5Ht72CZE0sCAwEAAQI/b6OV1z65UokQaMvSeRXt
+0Yv6wiYtduQI9qpq5nzy/ytaqsbBfClNTi/HifKPKxlRouWFkc518EQI8LBxoarJ
+AiEA4DaONMplV8PQNa3TKn2F+SDEvLOCjdL0kHKdN90Ti28CIQDDZnTBaHgZwZbA
+hS7Bbf5yvwjWMhO6Y7l04/Qm7R+35QIgPuQuqXIoUSD080mp1N5WyRW++atksIF+
+5lGv9e6GP/MCICnj8y/rl6Pd7tXDN6zcSeqLrfdNsREKhB3dKOCXgW9JAiAFYtFS
+EJNBXVRTK42SNsZ2hJ/9xLwOwnH2epT8Q43s3Q==
+-----END RSA PRIVATE KEY-----
+`.trim()
+
+    let pkcs8_private = `
+-----BEGIN PRIVATE KEY-----
+MIIBUgIBADANBgkqhkiG9w0BAQEFAASCATwwggE4AgEAAkEAqyNKUPxEUaSdzrtf
+dFyXnRavOOpw2D+dqzrV8g8ZRSuQ96eiSbtkcLCsMpbEPcWNMWD6UWVGSjBHke3v
+YJkTSwIDAQABAj9vo5XXPrlSiRBoy9J5Fe3Ri/rCJi125Aj2qmrmfPL/K1qqxsF8
+KU1OL8eJ8o8rGVGi5YWRznXwRAjwsHGhqskCIQDgNo40ymVXw9A1rdMqfYX5IMS8
+s4KN0vSQcp033ROLbwIhAMNmdMFoeBnBlsCFLsFt/nK/CNYyE7pjuXTj9CbtH7fl
+AiA+5C6pcihRIPTzSanU3lbJFb75q2SwgX7mUa/17oY/8wIgKePzL+uXo93u1cM3
+rNxJ6out902xEQqEHd0o4JeBb0kCIAVi0VIQk0FdVFMrjZI2xnaEn/3EvA7CcfZ6
+lPxDjezd
+-----END PRIVATE KEY-----
+`.trim()
+
+    let data = `
+NodeRsa
+这是node-rsa 现在修改集成在drpy里使用`.trim();
+
+    let encryptedWithPublic = NODERSA.encryptRSAWithPublicKey(data, pkcs1_public, {
+        // PublicFormat: "pkcs1-public-pem",
+        outputEncoding: "base64",
+        options: {environment: "browser", encryptionScheme: 'pkcs1_oaep'},
+    });
+    console.log("公钥加密");
+    console.log(encryptedWithPublic);
+
+
+    let decryptedWithPrivate = NODERSA.decryptRSAWithPrivateKey(encryptedWithPublic, pkcs1_private, {
+        // PublicFormat: "pkcs1-private",
+        // outEncoding: "hex"
+        options: {environment: "browser", encryptionScheme: 'pkcs1_oaep'},
+    });
+    console.log("私钥解密");
+    console.log(decryptedWithPrivate);
+
+
+// https://www.btool.cn/rsa-sign
+    let pkcs1_sha256_sign = NODERSA.sign("1", pkcs1_private, {
+        outputEncoding: "base64",
+        options: {environment: "browser", encryptionScheme: 'pkcs1', signingScheme: "pkcs1-sha256"},
+    });
+    console.log("pkcs1_sha256_sign");
+    console.log(pkcs1_sha256_sign);
+
+    let pkcs1_sha256_sign_verify = NODERSA.verify("1", "Oulx2QrgeipKYBtqEDqFb2s/+ndk2cGQxO4CkhU7iBM1vyNmmvqubpsmeoUuN3waGrYZLknSEdwBkfv0tUMpFQ==", pkcs1_private, {
+        options: {environment: "browser", encryptionScheme: 'pkcs1', signingScheme: "pkcs1-sha256"},
+    });
+    console.log("pkcs1_sha256_sign_verify");
+    console.log(pkcs1_sha256_sign_verify);
+
+    let pkcs1_oaep_sha256 = NODERSA.encryptRSAWithPublicKey(data, `-----BEGIN RSA PUBLIC KEY-----
+MIIBCgKCAQEA5KOq1gRNyllLNWKQy8sGpZE3Q1ULLSmzZw+eaAhj9lvqn7IsT1du
+SYn08FfoOA2qMwtz+1O2l1mgzNoSVCyVpVabnTG+C9XKeZXAnJHd8aYA7l7Sxhdm
+kte+iymYZ0ZBPzijo8938iugtVvqi9UgDmnY3u/NlQDqiL5BGqSxSTd/Sgmy3zD8
+PYzEa3wD9vehQ5fZZ45vKIq8GNVh2Z8+IGO85FF1OsN7+b2yGJa/FmDDNn0+HP+m
+PfI+kYBqEVpo0Ztbc3UdxgFwGC8O1n8AQyriwHnSOtIiuBH62J/7qyC/3LEAApRb
+Dd9YszqzmODjQUddZKHmvc638VW+azc0EwIDAQAB
+-----END RSA PUBLIC KEY-----
+`, {
+        outputEncoding: "base64",
+        options: {
+            environment: "browser", encryptionScheme: {
+                scheme: "pkcs1_oaep",
+                hash: "sha256",
+            },
+        }
+        // options: { environment: "browser", encryptionScheme: 'pkcs1' },
+    });
+    console.log("pkcs1_oaep_sha256");
+    console.log(pkcs1_oaep_sha256);
+
+    decryptedWithPrivate = NODERSA.decryptRSAWithPrivateKey("kSZesAAyYh2hdsQnYMdGqb6gKAzTauBKouvBzWcc4+F8RvGd0nwO6mVkUMVilPgUuNxjEauHayHiY8gI3Py45UI3+km0rSGyHrS6dHiHgCkMejXHieglYzAB0IxX3Jkm4z/66bdB/D+GFy0oct5fGCMI1UHPjEAYOsazJDa8lBFNbjiWFeb/qiZtIx3vGM7KYPAZzyRf/zPbbQ8zy9xOmRuOl5nnIxgo0Okp3KO/RIPO4GZOSBA8f2lx1UtNwwrXAMpcNavtoqHVcjJ/9lcotXYQFrn5b299pSIRf2gVm8ZJ31SK6Z8cc14nKtvgnmsgClDzIXJ1o1RcDK+knVAySg==", `-----BEGIN RSA PRIVATE KEY-----
+MIIEpAIBAAKCAQEA5KOq1gRNyllLNWKQy8sGpZE3Q1ULLSmzZw+eaAhj9lvqn7Is
+T1duSYn08FfoOA2qMwtz+1O2l1mgzNoSVCyVpVabnTG+C9XKeZXAnJHd8aYA7l7S
+xhdmkte+iymYZ0ZBPzijo8938iugtVvqi9UgDmnY3u/NlQDqiL5BGqSxSTd/Sgmy
+3zD8PYzEa3wD9vehQ5fZZ45vKIq8GNVh2Z8+IGO85FF1OsN7+b2yGJa/FmDDNn0+
+HP+mPfI+kYBqEVpo0Ztbc3UdxgFwGC8O1n8AQyriwHnSOtIiuBH62J/7qyC/3LEA
+ApRbDd9YszqzmODjQUddZKHmvc638VW+azc0EwIDAQABAoIBADZ/QGgUzInvsLp/
+zO2WbfYm39o/uhNAvk9RbLt1TIZbMFhyOpeKynHi3Swwd9xsfWX/U9zS/lGi/m31
+iKrhmaW4OA1G3vqpMcK7TBbFufYwUEaA+ZJX344euH8pIfdzyneMQ4z3Far2dS7l
+QsmjuilVV2kEFadveXewiYoVOWCu00w6bN8wy2SIHlQn+kIL6HQhWz12iKKflIKu
+eGRdzLHsKmBt6WbY1Wuhx7HU0fAKdlBDPxCHNlI+kybUYE9o5C2vJiaVM5wqJBgZ
+8Dz8kt1QbLJ910JoLXkLVQ8uC8NJKQwFtqQjTGPnEq0+wbgz6Ij599rKZkwW/xq9
+l6KoUiECgYEA6Ah42tVdkNW047f03xVYXFH96RgorHRS36mR8Y+ONUq1fwKidovC
+WjwVujt4OPf3l1W6iyn/F6cu/bsmvPrSc3HTN0B1V31QK4OjgetxQ2PSbTldH02J
+NPzkt+v+cPxXpx/P5mgt7Weefw5txU547KubGrHUV5rBKFtIx9pj16MCgYEA/EF0
+o19+D24DZAPwlDS5VbEd7FStnwY4oQ5PqbuNOSbSJLMWU0AqzXcRokp8UTyCZ0X3
+ATkS1REq97kShCuR+npTR6a6DlY7sdpPI1SMLNajgB2tkx0EOzX+PfNIbHUd4jpJ
+I0ZMAHv/OOtkzQHDaeTWBTrzsWm6/nTiykfduNECgYEA46AMD4HpPECqKAs66e5i
+tI6q7JSKskObWVdcmQEfnSAhVOwcvPb2Ptda6UuV8S0xcwDi88rLOUUFUFzc79+P
+vTkY38cYVi/VChsluDpk7ptqv0PbGu5Rf+3n4pZdEjI7OvR2W64wAAn67uIUxc7p
+yiO/ET0K9rYWb6S9jXGtKMkCgYEA2kPAqoO7zZoBMQ7/oR0lp/HC1HRIbiqx4RlC
+8Lgpb+QZPEwA6zPAVVvLVENi4d+bbcRp/xLlKpraNNJcJSSWAMbLPFoU7sbKjA87
+HnTPfRSTEA2d3Ibk3F7Rh8TzS3Ti0JZiJjVzGZAwu41iAMifzwaD8K6boUy80eNN
+QH2CaaECgYBUsLYvC/MiYg3w+LGOONuQongoVUXjGqnw2bjVa9RK7lwRdXPUqJ51
+MpVO98IkoLvGSI/0sGNP3GKNhC+eMGjJAVwFyEuOn+JsmMv9Y9uStIVi5tIHIhKw
+m7mp8il0kaftHdSxTbspG3tZ2fjIiFIZkLEOmRpd7ogWumgOajzUdA==
+-----END RSA PRIVATE KEY-----`, {
+        // PublicFormat: "pkcs1-private",
+        // outEncoding: "hex"
+        options: {environment: "browser", encryptionScheme: 'pkcs1_oaep'},
+    });
+    console.log('decryptedWithPrivate');
+    console.log(decryptedWithPrivate);
+
+
+    (() => {
+        let key = new NODERSA.NodeRSA({b: 1024});
+        key.setOptions({encryptionScheme: 'pkcs1'})
+        let text = `你好drpy node-ras`;
+        let encrypted = key.encrypt(text, 'base64');
+        console.log('encrypted: ', encrypted);
+        const decrypted = key.decrypt(encrypted, 'utf8');
+        console.log('decrypted: ', decrypted);
+    })();
+    let t2 = new Date().getTime();
+    console.log('rsa_demo_test 测试耗时:'+(t2-t1)+'毫秒');
+}
+
+
+/**
  * 执行预处理代码
  */
 function pre(){
@@ -72,7 +264,7 @@ function pre(){
 
 let rule = {};
 let vercode = typeof(pdfl) ==='function'?'drpy2.1':'drpy2';
-const VERSION = vercode+' 3.9.49beta40 202400426';
+const VERSION = vercode+' 3.9.50beta19 202400526';
 /** 已知问题记录
  * 1.影魔的jinjia2引擎不支持 {{fl}}对象直接渲染 (有能力解决的话尽量解决下，支持对象直接渲染字符串转义,如果加了|safe就不转义)[影魔牛逼，最新的文件发现这问题已经解决了]
  * Array.prototype.append = Array.prototype.push; 这种js执行后有毛病,for in 循环列表会把属性给打印出来 (这个大毛病需要重点排除一下)
@@ -107,11 +299,8 @@ const RULE_CK = 'cookie'; // 源cookie的key值
 const CATE_EXCLUDE = '首页|留言|APP|下载|资讯|新闻|动态';
 const TAB_EXCLUDE = '猜你|喜欢|下载|剧情|热播';
 const OCR_RETRY = 3;//ocr验证重试次数
-// const OCR_API = 'http://dm.mudery.com:10000';//ocr在线识别接口
-// const OCR_API = 'http://192.168.3.239:5705/parse/ocr';//ocr在线识别接口
-// const OCR_API = 'http://cms.nokia.press/parse/ocr';//ocr在线识别接口
-// const OCR_API = 'http://cms.nokia.press:5707/parse/ocr';//ocr在线识别接口
-const OCR_API = 'http://drpy.nokia.press:8028/ocr/drpy/text';//ocr在线识别接口
+// const OCR_API = 'http://drpy.nokia.press:8028/ocr/drpy/text';//ocr在线识别接口
+const OCR_API = 'https://api.nn.ci/ocr/b64/text';//ocr在线识别接口
 if(typeof(MY_URL)==='undefined'){
     var MY_URL; // 全局注入变量,pd函数需要
 }
@@ -136,9 +325,93 @@ const URLJOIN_ATTR = /(url|src|href|-original|-src|-play|-url|style)$/;  // 需�
 const SELECT_REGEX = /:eq|:lt|:gt|#/g;
 const SELECT_REGEX_A = /:eq|:lt|:gt/g;
 
+// 增加$js工具，支持$js.toString(()=>{});
+const $js = {
+    toString(func) {
+      let strfun = func.toString();
+      return strfun.replace(/^\(\)(\s+)?=>(\s+)?\{/, "js:").replace(/\}$/,'');
+    }
+};
+
+function window_b64(){
+let b64map = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
+let base64DecodeChars = new Array(-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 62, -1, -1, -1, 63, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, -1, -1, -1, -1, -1, -1, -1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, -1, -1, -1, -1, -1, -1, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, -1, -1, -1, -1, -1);
+function btoa(str) {
+    var out, i, len;
+    var c1, c2, c3;
+    len = str.length;
+    i = 0;
+    out = "";
+    while (i < len) {
+        c1 = str.charCodeAt(i++) & 0xff;
+        if (i == len) {
+            out += b64map.charAt(c1 >> 2);
+            out += b64map.charAt((c1 & 0x3) << 4);
+            out += "==";
+            break;
+        }
+        c2 = str.charCodeAt(i++);
+        if (i == len) {
+            out += b64map.charAt(c1 >> 2);
+            out += b64map.charAt(((c1 & 0x3) << 4) | ((c2 & 0xF0) >> 4));
+            out += b64map.charAt((c2 & 0xF) << 2);
+            out += "=";
+            break;
+        }
+        c3 = str.charCodeAt(i++);
+        out += b64map.charAt(c1 >> 2);
+        out += b64map.charAt(((c1 & 0x3) << 4) | ((c2 & 0xF0) >> 4));
+        out += b64map.charAt(((c2 & 0xF) << 2) | ((c3 & 0xC0) >> 6));
+        out += b64map.charAt(c3 & 0x3F);
+    }
+    return out;
+}
+
+function atob(str) {
+    var c1, c2, c3, c4;
+    var i, len, out;
+    len = str.length;
+    i = 0;
+    out = "";
+    while (i < len) {
+        do {
+            c1 = base64DecodeChars[str.charCodeAt(i++) & 0xff];
+        } while (i < len && c1 == -1);
+        if (c1 == -1) break;
+        do {
+            c2 = base64DecodeChars[str.charCodeAt(i++) & 0xff];
+        } while (i < len && c2 == -1);
+        if (c2 == -1) break;
+        out += String.fromCharCode((c1 << 2) | ((c2 & 0x30) >> 4));
+        do {
+            c3 = str.charCodeAt(i++) & 0xff;
+            if (c3 == 61) return out;
+            c3 = base64DecodeChars[c3];
+        } while (i < len && c3 == -1);
+        if (c3 == -1) break;
+        out += String.fromCharCode(((c2 & 0XF) << 4) | ((c3 & 0x3C) >> 2));
+        do {
+            c4 = str.charCodeAt(i++) & 0xff;
+            if (c4 == 61) return out;
+            c4 = base64DecodeChars[c4];
+        } while (i < len && c4 == -1);
+        if (c4 == -1) break;
+        out += String.fromCharCode(((c3 & 0x03) << 6) | c4);
+    }
+    return out;
+}
+    return {
+        atob,
+        btoa
+    }
+}
 /**
  es6py扩展
  */
+if(typeof atob != 'function' || typeof btoa!='function'){
+    var {atob,btoa} = window_b64();
+}
+
 if (typeof Object.assign != 'function') {
     Object.assign = function () {
         let target = arguments[0];
@@ -192,7 +465,8 @@ if (!Array.prototype.includes) {
                 k++;
             }
             return false;//未找到，返回false
-        }
+        },
+        enumerable:false
     });
 }
 if (typeof String.prototype.startsWith != 'function') {
@@ -205,7 +479,8 @@ if (typeof String.prototype.endsWith != 'function') {
         return this.indexOf(suffix, this.length - suffix.length) !== -1;
     };
 }
-Object.prototype.myValues=function(obj){
+Object.defineProperty(Object.prototype, 'myValues', {
+        value: function(obj){
     if(obj ==null) {
         throw new TypeError("Cannot convert undefined or null to object");
     }
@@ -216,9 +491,12 @@ Object.prototype.myValues=function(obj){
         }
     }
     return res;
-}
+},
+        enumerable:false
+});
 if (typeof Object.prototype.values != 'function') {
-    Object.prototype.values=function(obj){
+    Object.defineProperty(Object.prototype, 'values', {
+        value: function(obj){
         if(obj ==null) {
             throw new TypeError("Cannot convert undefined or null to object");
         }
@@ -229,10 +507,13 @@ if (typeof Object.prototype.values != 'function') {
             }
         }
         return res;
-    }
+    },
+        enumerable:false
+    });
 }
 if (typeof Array.prototype.join != 'function') {
-    Array.prototype.join = function (emoji) {
+    Object.defineProperty(Array.prototype, 'join', {
+        value: function (emoji) {
         // emoji = emoji||',';
         emoji = emoji||'';
         let self = this;
@@ -247,24 +528,37 @@ if (typeof Array.prototype.join != 'function') {
             str += String(emoji)+String(self[i]);
         }
         return str;
-    };
+    },
+        enumerable:false
+    });
 }
 if (typeof Array.prototype.toReversed != 'function') {
-    Array.prototype.toReversed = function () {
-        const clonedList = this.slice();
-        // 倒序新数组
-        const reversedList = clonedList.reverse();
-        return reversedList;
-    };
+    Object.defineProperty(Array.prototype, 'toReversed', {
+        value: function () {
+            const clonedList = this.slice();
+            // 倒序新数组
+            const reversedList = clonedList.reverse();
+            return reversedList;
+        },
+        enumerable:false
+    });
 }
 
-String.prototype.rstrip = function (chars) {
-    let regex = new RegExp(chars + "$");
-    return this.replace(regex, "");
-};
-
-Array.prototype.append = Array.prototype.push;
-String.prototype.strip = String.prototype.trim;
+Object.defineProperty(Array.prototype, 'append', {
+        value: Array.prototype.push,
+        enumerable:false
+});
+Object.defineProperty(String.prototype, 'strip', {
+        value: String.prototype.trim,
+        enumerable:false
+});
+Object.defineProperty(String.prototype, 'rstrip', {
+        value: function (chars) {
+            let regex = new RegExp(chars + "$");
+            return this.replace(regex, "");
+        },
+        enumerable:false
+});
 function 是否正版(vipUrl){
     let flag = new RegExp('qq\.com|iqiyi\.com|youku\.com|mgtv\.com|bilibili\.com|sohu\.com|ixigua\.com|pptv\.com|miguvideo\.com|le\.com|1905\.com|fun\.tv');
     return  flag.test(vipUrl);
@@ -425,6 +719,74 @@ function base64Decode(text){
 
 function md5(text) {
     return CryptoJS.MD5(text).toString();
+}
+
+function uint8ArrayToBase64(uint8Array) {
+    let binaryString = String.fromCharCode.apply(null, Array.from(uint8Array));
+    return btoa(binaryString);
+}
+
+function Utf8ArrayToStr(array) {
+    var out, i, len, c;
+    var char2, char3;
+    out = "";
+    len = array.length;
+    i = 0;
+    while (i < len) {
+        c = array[i++];
+        switch (c >> 4) {
+            case 0:
+            case 1:
+            case 2:
+            case 3:
+            case 4:
+            case 5:
+            case 6:
+            case 7:
+                out += String.fromCharCode(c);
+                break;
+            case 12:
+            case 13:
+                char2 = array[i++];
+                out += String.fromCharCode(((c & 0x1f) << 6) | (char2 & 0x3f));
+                break;
+            case 14:
+                char2 = array[i++];
+                char3 = array[i++];
+                out += String.fromCharCode(
+                    ((c & 0x0f) << 12) | ((char2 & 0x3f) << 6) | ((char3 & 0x3f) << 0)
+                );
+                break;
+        }
+    }
+    return out;
+}
+
+/**
+ * gzip压缩base64|压缩率80%+
+ * @param str
+ * @returns {string}
+ */
+function gzip(str) {
+    let arr = pako.gzip(str, {
+        to: 'string'
+    });
+    return uint8ArrayToBase64(arr)
+}
+
+/**
+ * gzip解压base64数据
+ * @param b64Data
+ * @returns {string}
+ */
+function ungzip(b64Data) {
+    let strData = atob(b64Data);
+    const charData = strData.split('').map(function(x) {
+        return x.charCodeAt(0);
+    });
+    const binData = new Uint8Array(charData);
+    const data = pako.inflate(binData);
+    return Utf8ArrayToStr(data);
 }
 
 /**
@@ -603,84 +965,94 @@ function fixAdM3u8(m3u8_text, m3u8_url, ad_remove) {
 /**
  *  智能对比去除广告。支持嵌套m3u8。只需要传入播放地址
  * @param m3u8_url m3u8播放地址
+ * @param headers 自定义访问m3u8的请求头,可以不传
  * @returns {string}
  */
-function fixAdM3u8Ai(m3u8_url) {
-    let ts = new Date().getTime();
+function fixAdM3u8Ai(m3u8_url,headers) {
+	let ts = new Date().getTime();
+    let option = headers ? {headers:headers}:{};
 
-    function b(s1, s2) {
-        let i = 0;
-        while (i < s1.length) {
-            if (s1[i] !== s2[i]) {
-                break
-            }
-            i++
-        }
-        return i;
+	function b(s1, s2) {
+		let i = 0;
+		while (i < s1.length) {
+			if (s1[i] !== s2[i]) {
+				break
+			}
+			i++
+		}
+		return i;
+	}
+
+	function reverseString(str) {
+		return str.split('').reverse().join('');
+	}
+
+	//log('播放的地址：' + m3u8_url);
+	let m3u8 = request(m3u8_url, option);
+	//log('m3u8处理前:' + m3u8);
+	m3u8 = m3u8.trim().split('\n').map(it => it.startsWith('#') ? it : urljoin(m3u8_url, it)).join('\n');
+	//log('m3u8处理后:============:' + m3u8);
+	// 获取嵌套m3u8地址
+	m3u8=m3u8.replace(/\n\n/ig,'\n');//删除多余的换行符
+	let last_url= m3u8.split('\n').slice(-1)[0];
+	if (last_url.length<5){
+		last_url= m3u8.split('\n').slice(-2)[0];
     }
 
-    function reverseString(str) {
-        return str.split('').reverse().join('');
-    }
-
-    //log('播放的地址：' + m3u8_url);
-    let m3u8 = request(m3u8_url);
-    //log('m3u8处理前:' + m3u8);
-    m3u8 = m3u8.trim().split('\n').map(it => it.startsWith('#') ? it : urljoin(m3u8_url, it)).join('\n');
-    //log('m3u8处理后:============:' + m3u8);
-    // 获取嵌套m3u8地址
-    let last_url = m3u8.split('\n').slice(-1)[0];
-    if (last_url.includes('.m3u8') && last_url !== m3u8_url) {
-        m3u8_url = last_url;
-        //log('嵌套的m3u8_url:' + m3u8_url);
-        m3u8 = request(m3u8_url);
-    }
-    //log('----处理有广告的地址----');
-    let s = m3u8.trim().split('\n').filter(it => it.trim()).join('\n');
-    let ss = s.split('\n')
-    //找出第一条播放地址
-    let firststr = ss.find(x => !x.startsWith('#'));
-    let maxl = 0;//最大相同字符
-    let firststrlen = firststr.length;
-    //log('字符串长度：' + firststrlen);
-    let ml = Math.round(ss.length / 2).toString().length;//取数据的长度的位数
-    //log('数据条数的长度：' + ml);
-    //找出最后一条播放地址
-    let laststr = ss.toReversed().find((x) => {
-        if (!x.startsWith('#')) {
-            let k = b(reverseString(firststr), reverseString(x));
-            maxl = b(firststr, x);
-            if (firststrlen - maxl <= ml + k) {
-                return true
-            }
-        }
-        return false
-    });
-    log('最后一条切片：' + laststr);
-    //log('最小相同字符长度：' + maxl);
-    let ad_urls = [];
-    for (let i = 0; i < ss.length; i++) {
-        let s = ss[i];
-        if (!s.startsWith('#')) {
-            if (b(firststr, s) < maxl) {
-                ad_urls.push(s); // 广告地址加入列表
-                ss.splice(i - 1, 2);
-                i = i - 2;
-            } else {
-                ss[i] = urljoin(m3u8_url, s);
-            }
-        } else {
-            ss[i] = s.replace(/URI=\"(.*)\"/, 'URI=\"' + urljoin(m3u8_url, '$1') + '\"');
-        }
-    }
-    log('处理的m3u8地址:' + m3u8_url);
-    log('----广告地址----');
-    log(ad_urls);
-    m3u8 = ss.join('\n');
-    //log('处理完成');
-    log('处理耗时：' + (new Date().getTime() - ts).toString());
-    return m3u8
+	if (last_url.includes('.m3u8') && last_url !== m3u8_url) {
+		m3u8_url = urljoin2(m3u8_url,last_url);
+		log('嵌套的m3u8_url:' + m3u8_url);
+		m3u8 = request(m3u8_url, option);
+	}
+	//log('----处理有广告的地址----');
+	let s = m3u8.trim().split('\n').filter(it => it.trim()).join('\n');
+	let ss = s.split('\n')
+	//找出第一条播放地址
+	let firststr = ss.find(x => !x.startsWith('#'));
+	let maxl = 0;//最大相同字符
+	let firststrlen = firststr.length;
+	//log('字符串长度：' + firststrlen);
+	let ml = Math.round(ss.length / 2).toString().length;//取数据的长度的位数
+	//log('数据条数的长度：' + ml);
+	//找出最后一条播放地址
+	let maxc=0;
+	let laststr = ss.toReversed().find((x) => {
+		if (!x.startsWith('#')) {
+			let k = b(reverseString(firststr), reverseString(x));
+			maxl = b(firststr, x);
+			maxc++;
+			if (firststrlen - maxl <= ml + k || maxc>10) {
+				return true
+			}
+		}
+		return false
+	});
+	log('最后一条切片：' + laststr);
+	//log('最小相同字符长度：' + maxl);
+	let ad_urls = [];
+	for (let i = 0; i < ss.length; i++) {
+		let s = ss[i];
+		if (!s.startsWith('#')) {
+			if (b(firststr, s) < maxl) {
+				ad_urls.push(s); // 广告地址加入列表
+				ss.splice(i - 1, 2);
+				i = i - 2;
+			} else {
+				ss[i] = urljoin(m3u8_url, s);
+			}
+		} else {
+			ss[i] = s.replace(/URI=\"(.*)\"/, 'URI=\"' + urljoin(m3u8_url, '$1') + '\"');
+		}
+	}
+	log('处理的m3u8地址:' + m3u8_url);
+	log('----广告地址----');
+	log(ad_urls);
+	m3u8 = ss.join('\n');
+	//log('处理完成');
+	log('处理耗时：' + (new Date().getTime() - ts).toString());
+	return m3u8
 }
+
 
 /**
  * 强制正序算法
@@ -730,6 +1102,30 @@ globalThis.encodeUrl = urlencode;
 globalThis.urlencode = urlencode;
 
 
+/**
+ * 获取链接的query请求转为js的object字典对象
+ * @param url
+ * @returns {{}}
+ */
+function getQuery(url) {
+  try {
+    if(url.indexOf('?')>-1){
+      url = url.slice(url.indexOf('?')+1);
+    }
+    let arr = url.split("#")[0].split("&");
+    const resObj = {};
+    arr.forEach(item => {
+      let arr1 = item.split("=");
+      let key = arr1[0];
+      let value = arr1.slice(1).join('=');
+      resObj[key] = value;
+    });
+    return resObj;
+  } catch (err) {
+    log('getQuery发生错误:'+e.message)
+    return {};
+  }
+}
 
 /**
  *  url拼接
@@ -993,18 +1389,23 @@ function dealJson(html) {
  * 验证码识别逻辑,需要java实现(js没有bytes类型,无法调用后端的传递图片二进制获取验证码文本的接口)
  * @type {{api: string, classification: (function(*=): string)}}
  */
-var OcrApi={
-    api:OCR_API,
-    classification:function (img){ // img是byte类型,这里不方便搞啊
+var OcrApi = {
+    api: OCR_API,
+    classification: function (img) { // img是byte类型,这里不方便搞啊
         let code = '';
         try {
             // let html = request(this.api,{data:{img:img},headers:{'User-Agent':PC_UA},'method':'POST'},true);
             // html = JSON.parse(html);
             // code = html.url||'';
             log('通过drpy_ocr验证码接口过验证...');
-            let html = request(OCR_API,{data:{img:img},headers:{'User-Agent':PC_UA},'method':'POST'},true);
-            code = html||'';
-        }catch (e) {
+            let html = '';
+            if(this.api.endsWith('drpy/text')) {
+                html = request(this.api, {data: {img: img}, headers: {'User-Agent': PC_UA}, 'method': 'POST'}, true);
+            }else{
+                html = post(this.api,{body:img});
+            }
+            code = html || '';
+        } catch (e) {
             log(`OCR识别验证码发生错误:${e.message}`)
         }
         return code
@@ -1135,7 +1536,7 @@ function buildUrl(url,obj){
  * 远程依赖执行函数
  * @param url 远程js地址
  */
-function require(url){
+function $require(url){
     eval(request(url));
 }
 /**
@@ -1229,6 +1630,35 @@ function request(url,obj,ocr_flag){
 function post(url,obj){
     obj.method = 'POST';
     return request(url,obj);
+}
+
+/**
+ * 快捷获取特殊地址cookie|一般用作搜索过验证
+ * 用法 let {cookie,html} = reqCookie(url);
+ * @param url 能返回cookie的地址
+ * @param obj 常规请求参数
+ * @param all_cookie 返回全部cookie.默认false只返回第一个,一般是PhpSessionId
+ * @returns {{cookie: string, html: (*|string|DocumentFragment)}}
+ */
+function reqCookie(url,obj,all_cookie){
+    obj = obj||{};
+    obj.withHeaders = true;
+    all_cookie = all_cookie||false;
+    let html = request(url, obj);
+    let json = JSON.parse(html);
+    let setCk = Object.keys(json).find(it=>it.toLowerCase()==='set-cookie');
+    let cookie = setCk?json[setCk]:'';
+    if(Array.isArray(cookie)){
+        cookie = cookie.join(';')
+    }
+    if(!all_cookie) {
+        cookie = cookie.split(';')[0];
+    }
+    html = json.body;
+    return {
+        cookie,
+        html
+    }
 }
 
 fetch = request;
@@ -1653,6 +2083,8 @@ function categoryParse(cateObj) {
         }else{
             url = url.replace('fyfilter', rule.filter_url);
         }
+        // filter_url支持fyclass
+        url = url.replaceAll('fyclass', cateObj.tid);
         // console.log('filter:'+cateObj.filter);
         let fl = cateObj.filter?cateObj.extend:{};
         // 自动合并 不同分类对应的默认筛选
@@ -2172,6 +2604,7 @@ function detailParse(detailObj){
             }else{
                 let list_text = p.list_text||'body&&Text';
                 let list_url = p.list_url||'a&&href';
+                let list_url_prefix = p.list_url_prefix||'';
                 // print('list_text:'+list_text);
                 // print('list_url:'+list_url);
                 // print('list_parse:'+p.lists);
@@ -2189,6 +2622,9 @@ function detailParse(detailObj){
                     // print('pdfl:'+typeof (pdfl));
                     if(typeof (pdfl) ==='function'){
                         new_vod_list = pdfl(html, p1, list_text, list_url, MY_URL);
+                        if(list_url_prefix){
+                            new_vod_list = new_vod_list.map(it=>it.split('$')[0]+'$'+list_url_prefix+it.split('$').slice(1).join('$'));
+                        }
                     }else {
                         let vodList = [];
                         try {
@@ -2199,7 +2635,7 @@ function detailParse(detailObj){
                         }
                         for (let i = 0; i < vodList.length; i++) {
                             let it = vodList[i];
-                            new_vod_list.push(_pdfh(it, list_text).trim() + '$' + _pd(it, list_url, MY_URL));
+                            new_vod_list.push(_pdfh(it, list_text).trim() + '$' + list_url_prefix + _pd(it, list_url, MY_URL));
                         }
                     }
                     if(new_vod_list.length>0){
@@ -2229,7 +2665,11 @@ function detailParse(detailObj){
     let t2 = (new Date()).getTime();
     console.log(`加载二级界面${MY_URL}耗时:${t2-t1}毫秒`);
     // print(vod);
-    vod = vodDeal(vod);
+    try {
+     vod = vodDeal(vod);
+    }catch (e) {
+     console.log(`vodDeal发生错误:${e.message}`);
+    }
     // print(vod);
     return JSON.stringify({
         list: [vod]
@@ -2329,7 +2769,7 @@ function playParse(playObj){
     var input = MY_URL;//注入给免嗅js
     var flag = MY_FLAG;//注入播放线路名称给免嗅js
     let common_play = {
-        parse:1,
+        parse: SPECIAL_URL.test(input) || /^(push:)/.test(input) ? 0: 1,
         url:input,
         flag:flag,
         // url:urlencode(input),
@@ -2340,7 +2780,10 @@ function playParse(playObj){
         lazy_play =  common_play;
     }else if(rule.play_parse&&rule.lazy&&typeof(rule.lazy)==='string'){
         try {
-            let lazy_code = rule.lazy.replace('js:','').trim();
+            let lazy_code = rule.lazy.trim();
+            if(lazy_code.startsWith('js:')){
+                lazy_code = lazy_code.replace('js:','').trim();
+            }
             print('开始执行js免嗅=>'+lazy_code);
             eval(lazy_code);
             lazy_play = typeof(input) === 'object'?input:{
@@ -2443,6 +2886,10 @@ function isVideoParse(isVideoObj){
  */
 function init(ext) {
     console.log('init');
+    // init前重置rule和fetch_params
+    rule = {};
+    rule_fetch_params = {};
+    fetch_params = null;
     try {
         // make shared jsContext happy muban不能import,不然会造成换源继承后变量被篡改
         // if (typeof (globalThis.mubanJs) === 'undefined') {
@@ -2459,10 +2906,16 @@ function init(ext) {
         if (typeof ext == 'object'){
             rule = ext;
         } else if (typeof ext == 'string') {
-            if (ext.startsWith('http')) {
+            if (ext.startsWith('http') || ext.startsWith('file://')) {
+                let query = getQuery(ext); // 获取链接传参
                 let js = request(ext,{'method':'GET'});
                 if (js){
                     eval(js.replace('var rule', 'rule'));
+                }
+                if(query.type==='url' && query.params){ // 指定type是链接并且传了params支持简写如 ./xx.json
+                    rule.params = urljoin(ext,query.params);
+                }else if(query.params){ // 没指定type直接视为字符串
+                    rule.params = query.params;
                 }
             } else {
                 eval(ext.replace('var rule', 'rule'));
@@ -2523,10 +2976,16 @@ function init(ext) {
         rule.play_json = rule.hasOwnProperty('play_json')?rule.play_json:[];
         rule.pagecount = rule.hasOwnProperty('pagecount')?rule.pagecount:{};
         rule.proxy_rule = rule.hasOwnProperty('proxy_rule')?rule.proxy_rule:'';
+        if(!rule.hasOwnProperty('sniffer')){ // 默认关闭辅助嗅探
+            rule.sniffer = false;
+        }
         rule.sniffer = rule.hasOwnProperty('sniffer')?rule.sniffer:'';
         rule.sniffer = !!(rule.sniffer && rule.sniffer!=='0' && rule.sniffer!=='false');
 
         rule.isVideo = rule.hasOwnProperty('isVideo')?rule.isVideo:'';
+        if(rule.sniffer && !rule.isVideo){ // 默认辅助嗅探自动增强嗅探规则
+            rule.isVideo = 'http((?!http).){12,}?\\.(m3u8|mp4|flv|avi|mkv|rm|wmv|mpg|m4a|mp3)\\?.*|http((?!http).){12,}\\.(m3u8|mp4|flv|avi|mkv|rm|wmv|mpg|m4a|mp3)|http((?!http).)*?video/tos*|http((?!http).)*?obj/tos*';
+        }
 
         rule.tab_remove = rule.hasOwnProperty('tab_remove')?rule.tab_remove:[];
         rule.tab_order = rule.hasOwnProperty('tab_order')?rule.tab_order:[];
@@ -2580,6 +3039,14 @@ let homeHtmlCache = undefined;
  */
 function home(filter) {
     console.log("home");
+    if(typeof(rule.filter) === 'string' && rule.filter.trim().length > 0){
+        try {
+            let filter_json = ungzip(rule.filter.trim());
+            rule.filter = JSON.parse(filter_json);
+        }catch (e) {
+            rule.filter = {};
+        }
+    }
     let homeObj = {
         filter:rule.filter||false,
         MY_URL: rule.homeUrl,
@@ -2778,7 +3245,8 @@ function DRPY(){//导出函数
         search: search,
         proxy:proxy,
         sniffer:sniffer,
-        isVideo:isVideo
+        isVideo:isVideo,
+        fixAdM3u8Ai:fixAdM3u8Ai,
     }
 }
 
@@ -2804,5 +3272,6 @@ export default {
     proxy,
     sniffer,
     isVideo,
+    fixAdM3u8Ai,
     DRPY,
 }
