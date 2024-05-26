@@ -1,8 +1,10 @@
 var rule = {
   title:'喵物次元',
-  host:'https://www.mwcy.net/',
-  url:'/catshow/fyclass/fypage.html',
-  searchUrl:'/catsearch/page/fypage/wd/**.html',
+  host:'https://www.mwcy.net',
+  url:'/catshow/fyclass/page/fypage.html',
+  class_name:'动画&剧场&周番',
+  class_url:'1&2&3',
+  searchUrl:'',
   searchable:2,
   quickSearch:0,
   filterable:1,
@@ -13,26 +15,50 @@ var rule = {
       'User-Agent':'MOBILE_UA',
   },
   timeout:5000,
-  class_parse:'div.head-more a;a&&Text;a&&href;.*/(.*?)\.html',
-  cate_exclude:'特摄剧|我的|专题|排行榜|周番剧表',
+  class_parse:'#side-menu li;a&&Text;a&&href;/(.*?)\.html',
+  cate_exclude:'',
   play_parse:true,
   lazy:$js.toString(()=>{
     input = {parse:1,url:input,js:''};
   }),
   double:true,
-  //推荐:'.public-list-div;a;a&&title;img&&data-src;.public-list-prb&&Text;a&&href',
-  一级:'.public-list-div a;a&&title;img&&data-src;span:eq(1)&&Text;a&&href;详情',
+  推荐:'列表1;列表2;标题;图片;描述;链接;详情',
+  一级:$js.toString(()=>{
+      let d = [];
+      let list_css = '.public-list-box';
+      if(MY_CATE=='3'){
+        //MY_URL = urljoin(MY_URL,'/label/weekday.html');
+        MY_URL = 'https://www.mwcy.net/index.php/api/weekday';
+        let t1 = Math.floor(Date.now() / 1000);
+        let html = post(MY_URL,{body:`weekday=一&num=20&by=time&type=&time=${t1}&key=9f35de473ddf3bae9416f089ce0777c5`});
+        VODS = JSON.parse(html).list
+        
+      }else{
+      let html = request(MY_URL);
+      pdfa(html,list_css).forEach(it=>{
+        d.push({
+        title: pdfh(it,'a&&title'),
+        desc:pdfh(it,'.ft2&&Text'),
+        img:pdfh(it,'img&&data-src'),
+        url:pd(it,'a&&href',MY_URL)
+      });
+      });
+      setResult(d);
+      }
+      
+      
+  }),
   二级:{
-    title:'h3&&Text;.style-detail span:eq(7)&&Text',
-    img:'.style-detail&&img&&data-src',
-    desc:'主要信息;.style-detail&&a&&Text;地区;.style-detail&&.slide-info:eq(2)&&Text;.style-detail&&a:eq(2)&&Text',
-    content:'#height_limit&&Text',
-    tabs:'.nav-swiper a',
-    lists:'.anthology-list-play li',
+    title:'vod_name;vod_type',
+    img:'图片链接',
+    desc:'主要信息;年代;地区;演员;导演',
+    content:'简介',
+    tabs:'',
+    lists:'xx:eq(#id)&&a',
     tab_text:'body&&Text',
     list_text:'body&&Text',
     list_url:'a&&href',
     list_url_prefix: '',
   },
-  搜索:'.box-width:eq(1)&&.public-list-exp;.public-list-exp&&img&&alt;.public-list-exp&&img&&data-src;.public-list-exp&&span&&Text;a&&href',
+  搜索:'列表;标题;图片;描述;链接;详情',
 }
