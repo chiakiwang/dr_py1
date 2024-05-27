@@ -2,7 +2,7 @@ var rule = {
   title:'搜片',
   host:'https://soupian.pro',
   url:'/',
-  searchUrl:'/search?key=%E6%96%97%E7%BD%97',
+  searchUrl:'/search?key=**',
   searchable:2,
   quickSearch:0,
   filterable:1,
